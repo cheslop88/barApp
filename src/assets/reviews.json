@@ -1,0 +1,16 @@
+{
+  "reviewsData":[
+    {
+      "id": 1,
+      "name": "Dave",
+      "review": "lorem ipsum",
+      "score": 5
+    },
+    {
+      "id": 2,
+      "name": "Paul",
+      "review": "Dolor sit amet",
+      "score": 8
+    }
+  ]
+}
