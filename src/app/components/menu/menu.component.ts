@@ -55,9 +55,6 @@ export class MenuComponent implements OnInit {
     }
     return sum;
   }
-  showBasket() {
-      console.log('basket');
-  }
   /* Function to increase quantity on click */
   upQuantity(item) {
     if (item.quantity < item.stock_available) item.quantity++;

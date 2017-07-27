@@ -24,7 +24,7 @@
 }
 .text {
   color: white;
-  font-size: 14px;
+  font-size: 12px;
   position: absolute;
   padding: 5%;
   font-family: 'Julius Sans One', sans-serif;
@@ -78,10 +78,12 @@
 }
 .cocktail-name {
   font-weight: 700;
+  height: 100px;
 }
 .cocktail-ingredients {
   font-style: italic;
-  font-size: 16px;
+  font-size: 14px;
+  height: 60px;
 }
 button.decrease,
 button.increase {
@@ -124,4 +126,11 @@ form {
 }
 .menu {
   margin: 2%;
+}
+.special {
+  color: green;
+  font-weight: 700;
+}
+.basket {
+  opacity: 0.6;
 }

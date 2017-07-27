@@ -1,8 +1,5 @@
 <div class="container">
-      <h2><strong>Menu</strong></h2>
-      <p>Take a look at our cocktails on offer as we try to recreate the drinks of the prohibition era.</p>
   <h2>Basket ({{totalQuantity()}})</h2>
-  <button class="btn" (click)="showBasket()">Show Basket</button>
   <table>
     <tr>
       <th>Item</th>
@@ -13,7 +10,8 @@
     <tr *ngFor="let item of items">
       <td *ngIf="item.inBasket">{{item.name}}</td>
       <td *ngIf="item.inBasket">{{item.quantity}}</td>
-      <td *ngIf="item.inBasket"> {{item.quantity * item.price | currency:'GBP':true }}</td>
+      <td *ngIf="item.inBasket && item.special_offer == true;else standardPrice"> {{item.quantity * item.special_offer_price | currency:'GBP':true }}</td>
+        <ng-template #standardPrice><td *ngIf="item.inBasket"> {{item.quantity * item.price | currency:'GBP':true }}</td></ng-template>
       <td *ngIf="item.inBasket"><button class="btn" (click)="cancelItem(item)">Remove</button></td>
     </tr>
     <tr>
@@ -27,8 +25,14 @@
     <label for="term">Search Menu</label>
     <input type="text" id="term" name="term" [(ngModel)]="term" />
   </form>
-  <div class="col-md-4 col-lg-4 drink-item" *ngFor="let item of items | filter:term">
-        <div class="container-overlay">
+</div>
+<br/>
+<br/>
+<div class="container">
+      <h2><strong>Menu</strong></h2>
+      <p>Take a look at our cocktails on offer as we try to recreate the drinks of the prohibition era.</p>
+    <div class="col-md-4 col-lg-4 drink-item" *ngFor="let item of items | filter:term">
+        <div class="container-overlay" [class.basket]="item.inBasket">
           <div class="frame">
             <img class="img-responsive" [src]="item.image" [alt]="item.imageDescription">
             <div class="overlay">
@@ -38,11 +42,11 @@
         </div>
         <div class="cocktail-info">
           <h3 class="cocktail-name">{{item.name}}</h3>
-          <div *ngIf="item.special_offer == true;else specialOffer">
-            <h4 class="price">{{item.price | currency:'GBP':true}}</h4>
+          <div *ngIf="item.special_offer == true;else standardPrice">
+            <h4 [class.special]="item.special_offer" class="price">{{item.special_offer_price | currency:'GBP':true}}</h4>
           </div>
           <!-- Special Offer Price -->
-          <ng-template #specialOffer><h4 class="price">{{item.special_offer_price | currency:'GBP':true}}</h4></ng-template>
+          <ng-template #standardPrice><h4 class="price">{{item.price | currency:'GBP':true}}</h4></ng-template>
           <p class="cocktail-ingredients">{{item.main_ingredient}}, {{item.additional_ingredients}}</p>
           <div class="select-quantity">
             <button class="decrease" (click)="downQuantity(item)">-</button>
@@ -51,9 +55,6 @@
           </div>
           <div *ngIf="item.stock_available > item.quantity" class="stock-remain"><strong>{{item.stock_available - item.quantity}} remaining</strong></div>
           <div *ngIf="item.quantity === item.stock_available" class="stock-sold"><strong>Sold Out</strong></div>
-          <div *ngIf="item.inBasket">
-            <button class="btn" (click)="cancelItem(item)">Cancel</button>
-          </div>
         </div>
     </div>
   </div>
